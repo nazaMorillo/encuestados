@@ -26,9 +26,13 @@ VistaAdministrador.prototype = {
     var nuevoItem;
     //completar
     //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
+    nuevoitem = document.createElement('li', {class: "list-group-item", id: "pregunta.id"});
+
     var interiorItem = $('.d-flex');
     var titulo = interiorItem.find('h5');
     titulo.text(pregunta.textoPregunta);
+
+    nuevoitem.innerHTML = titulo;
     interiorItem.find('small').text(pregunta.cantidadPorRespuesta.map(function(resp){
       return " " + resp.textoRespuesta;
     }));
