@@ -23,20 +23,18 @@ VistaAdministrador.prototype = {
 
   construirElementoPregunta: function(pregunta){
     var contexto = this;
-    var nuevoItem;
-    //completar
     //asignar a nuevoitem un elemento li con clase "list-group-item", id "pregunta.id" y texto "pregunta.textoPregunta"
-    nuevoitem = document.createElement('li', {class: "list-group-item", id: "pregunta.id"});
+    var nuevoItem = $('<li class ="list-group-item" id='+pregunta.id+'>'+pregunta.textoPregunta+'</li>');
+    //nuevoitem = document.createElement("li", {class: "list-group-item", id: "pregunta.id"});
+    console.log(nuevoitem);
 
-    var interiorItem = $('.d-flex');
-    var titulo = interiorItem.find('h5');
+    var interiorItem = $(".d-flex");
+    var titulo = interiorItem.find("h5");
     titulo.text(pregunta.textoPregunta);
-
-    nuevoitem.innerHTML = titulo;
-    interiorItem.find('small').text(pregunta.cantidadPorRespuesta.map(function(resp){
+    interiorItem.find("small").text(pregunta.cantidadPorRespuesta.map(function(resp){
       return " " + resp.textoRespuesta;
     }));
-    nuevoItem.html($('.d-flex').html());
+    nuevoItem.html($(".d-flex").html());
     return nuevoItem;
   },
 
