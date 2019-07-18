@@ -12,6 +12,13 @@ var Modelo = function() {
 Modelo.prototype = {
   //se obtiene el id más grande asignado a una pregunta
   obtenerUltimoId: function() {
+    let listaId=[];
+
+    this.preguntas.forEach(function(pregunta){
+        listaId.push(pregunta.id);
+    });
+    this.ultimoId=Math.max(listaId);    
+    return this.ultimoId;// agregué esta linea
   },
 
   //se agrega una pregunta dado un nombre y sus respuestas
