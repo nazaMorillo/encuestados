@@ -11,6 +11,14 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
+
+  this.modelo.preguntaBorrada.suscribir(function(){
+    contexto.reconstruirLista();
+  });
+
+  this.modelo.encuestaBorrada.suscribir(function(){
+    contexto.reconstruirLista();
+  });
 };
 
 
@@ -35,7 +43,6 @@ VistaAdministrador.prototype = {
       return " " + resp.textoRespuesta;
     }));
     nuevoItem.html($(".d-flex").html());
-    console.log(nuevoItem);
     return nuevoItem;
 //this.modelo.preguntas = [{'textoPregunta': "Mi primer Pregunta", 'id': 0, 'cantidadPorRespuesta': [{'textoRespuesta': "mi unica respuesta", 'cantidad': 2}]}];
   },
@@ -58,7 +65,7 @@ VistaAdministrador.prototype = {
       var value = e.pregunta.val();
       var respuestas = [];
 
-      $('[name="option[]"]').each(function(respuesta) { // respuesta
+      $('[name="option[]"]').each(function(respuesta) { // estas son las respuesta
         //completar
         respuesta=$(this).val(); // acá asocio el valor
         if(respuesta.length > 0){
@@ -69,7 +76,20 @@ VistaAdministrador.prototype = {
       contexto.controlador.agregarPregunta(value, respuestas);
     });
     //asociar el resto de los botones a eventos
+    e.botonBorrarPregunta.click(function() { // agregué esta función
+      let id = parseInt($('.list-group-item.active').attr('id')); // agregué esta linea
+      //console.log(id);
+      //en la función del controlador para borrarPregunta paso por parametro id
+      contexto.controlador.borrarPregunta(id);
+    });
+      // Borrar lista
+    e.borrarTodo.click(function() {
+      contexto.controlador.borrarEncuesta();
+
+    });
+
   },
+
 
   limpiarFormulario: function(){
     $('.form-group.answer.has-feedback.has-success').remove();
