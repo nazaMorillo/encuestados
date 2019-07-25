@@ -64,17 +64,17 @@ Modelo.prototype = {
   },
   incrementarVotoRespuesta: function (nombrePregunta,respuestaSeleccionada) {
     this.preguntas.forEach(function(pregunta) {
-      if (pregunta.textoPregunta==nombrePregunta /*&& pregunta.cantidadPorRespuesta.textoRespuesta==respuestaSeleccionada*/) {
-        //pregunta.cantidadPorRespuesta.cantidad++;
-        alert('Entró al if de pregunta : '+pregunta.textoPregunta);
+      if (pregunta.textoPregunta==nombrePregunta) {
         pregunta.cantidadPorRespuesta.forEach(function(respuesta) {
           if (respuesta.textoRespuesta==respuestaSeleccionada) {
             respuesta.cantidad++;
           }
-        });        
+        });     
       }
     });
     this.votoIncrementado.notificar();
+    // Este bloque de texto comentado agrega voto cuando se le pasa por parametro 
+    // indice de pregunta e indice de respuesta
     /*console.log('indice Pregunta['+indicePregunta+'],indie Respuesta['+indiceRespuesta+']');
     let cantidad= this.preguntas[indicePregunta]
         .cantidadPorRespuesta[indiceRespuesta]
@@ -92,7 +92,7 @@ Modelo.prototype = {
   // recuperar preguntas
    actualizarPreguntas: function() {
     if (localStorage.getItem('Preguntas')) {
-      alert("Se recuperaron datos de la última sesión");
+      //alert("Se recuperaron datos de la última sesión");
       let preguntasAlmacenadas = localStorage.getItem('Preguntas');
       this.preguntas=JSON.parse(preguntasAlmacenadas);
       this.preguntaAgregada.notificar();  

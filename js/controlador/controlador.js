@@ -26,7 +26,6 @@ Controlador.prototype = {
     this.modelo.borrarEncuesta();
   },
   agregarVoto: function(nombrePregunta,respuestaSeleccionada) {  // agregué esta función
-    alert('Pregunta: '+nombrePregunta+',  Respuesta :'+respuestaSeleccionada);
     this.modelo.incrementarVotoRespuesta(nombrePregunta,respuestaSeleccionada);
   },
 };

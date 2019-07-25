@@ -25,9 +25,7 @@ VistaUsuario.prototype = {
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos(); 
-    });
-      
-    this.reconstruirGrafico();
+    });    
   },
 
   //reconstruccion de los graficos de torta
@@ -44,7 +42,6 @@ VistaUsuario.prototype = {
       contexto.dibujarGrafico(clave.textoPregunta, listaParaGrafico);
     })
   },
-
 
   reconstruirLista: function() {
     var listaPreguntas = this.elementos.listaPreguntas;
@@ -85,6 +82,7 @@ VistaUsuario.prototype = {
         $('input[name=' + id + ']').prop('checked',false);
         contexto.controlador.agregarVoto(nombrePregunta,respuestaSeleccionada);
       });
+    this.reconstruirGrafico();
   },
 
   dibujarGrafico: function(nombre, respuestas){
