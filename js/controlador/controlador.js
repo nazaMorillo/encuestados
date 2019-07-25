@@ -6,6 +6,9 @@ var Controlador = function(modelo) {
 };
 
 Controlador.prototype = {
+  recuperarPreguntas: function() {
+      this.modelo.actualizarPreguntas();
+  },
   agregarPregunta: function(pregunta, respuestas) {
       this.modelo.agregarPregunta(pregunta, respuestas);
   },

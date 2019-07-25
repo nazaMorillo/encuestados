@@ -12,7 +12,7 @@ var Modelo = function() {
   this.encuestaBorrada = new Evento(this); // agregué esta liniea
 };
 
-Modelo.prototype = {
+Modelo.prototype = {   
   //se obtiene el id más grande asignado a una pregunta
   obtenerUltimoId: function() {
     let ultimoId=this.ultimoId;
@@ -58,10 +58,41 @@ Modelo.prototype = {
   borrarEncuesta: function(){ // agregué este metodo
     this.preguntas = [];
     this.guardar();
+    this.borrarLocalStorage();
     this.preguntaBorrada.notificar();
   },
+  incrementarVotoRespuesta: function (indicePregunta, indiceRespuesta) {
+    console.log('indice Pregunta['+indicePregunta+'],indie Respuesta['+indiceRespuesta+']');
+    let cantidad= this.preguntas[indicePregunta]
+        .cantidadPorRespuesta[indiceRespuesta]
+        .cantidad++;
+    console.log('Cantidad respuesta'+cantidad+', Respuesta : '+this.preguntas[indicePregunta]
+        .cantidadPorRespuesta[indiceRespuesta].textoRespuesta);
 
+    /*
+    this.modelo.preguntas.forEach(function(pregunta) {
+      console.log(pregunta.textoPregunta);
+      console.log(pregunta.cantidadPorRespuesta.cantidad);
+    });
+    */
+  },
+  // recuperar preguntas
+   actualizarPreguntas: function() {
+    if (localStorage.getItem('Preguntas')) {
+      alert("Se recuperaron datos de la última sesión");
+      let preguntasAlmacenadas = localStorage.getItem('Preguntas');
+      this.preguntas=JSON.parse(preguntasAlmacenadas);
+      this.preguntaAgregada.notificar();  
+    }
+    //alert('No existe local Storage');
+   },
   //se guardan las preguntas
   guardar: function(){
+    localStorage.setItem('Preguntas', JSON.stringify(this.preguntas));
+  },
+  // borrar local storage
+  borrarLocalStorage: function() {
+    localStorage.removeItem('Preguntas');
+    this.preguntaAgregada.notificar();
   },
 };

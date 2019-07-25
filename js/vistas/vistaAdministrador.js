@@ -29,10 +29,14 @@ VistaAdministrador.prototype = {
   inicializar: function() {
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
     validacionDeFormulario();
+    this.recuperarDatos();
     this.reconstruirLista();
     this.configuracionDeBotones();
+    
   },
-
+  recuperarDatos: function() {
+    this.controlador.recuperarPreguntas();
+  },
   construirElementoPregunta: function(pregunta){
     var contexto = this;
     var nuevoItem = $('<li class ="list-group-item" id='+pregunta.id+'>'+pregunta.textoPregunta+'</li>');
