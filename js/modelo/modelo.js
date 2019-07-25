@@ -10,6 +10,7 @@ var Modelo = function() {
   this.preguntaEditada = new Evento(this); // agregué esta liniea
   this.preguntaBorrada = new Evento(this); // agregué esta liniea
   this.encuestaBorrada = new Evento(this); // agregué esta liniea
+  this.votoIncrementado = new Evento(this); // agregué esta liniea
 };
 
 Modelo.prototype = {   
@@ -61,13 +62,25 @@ Modelo.prototype = {
     this.borrarLocalStorage();
     this.preguntaBorrada.notificar();
   },
-  incrementarVotoRespuesta: function (indicePregunta, indiceRespuesta) {
-    console.log('indice Pregunta['+indicePregunta+'],indie Respuesta['+indiceRespuesta+']');
+  incrementarVotoRespuesta: function (nombrePregunta,respuestaSeleccionada) {
+    this.preguntas.forEach(function(pregunta) {
+      if (pregunta.textoPregunta==nombrePregunta /*&& pregunta.cantidadPorRespuesta.textoRespuesta==respuestaSeleccionada*/) {
+        //pregunta.cantidadPorRespuesta.cantidad++;
+        alert('Entró al if de pregunta : '+pregunta.textoPregunta);
+        pregunta.cantidadPorRespuesta.forEach(function(respuesta) {
+          if (respuesta.textoRespuesta==respuestaSeleccionada) {
+            respuesta.cantidad++;
+          }
+        });        
+      }
+    });
+    this.votoIncrementado.notificar();
+    /*console.log('indice Pregunta['+indicePregunta+'],indie Respuesta['+indiceRespuesta+']');
     let cantidad= this.preguntas[indicePregunta]
         .cantidadPorRespuesta[indiceRespuesta]
         .cantidad++;
     console.log('Cantidad respuesta'+cantidad+', Respuesta : '+this.preguntas[indicePregunta]
-        .cantidadPorRespuesta[indiceRespuesta].textoRespuesta);
+        .cantidadPorRespuesta[indiceRespuesta].textoRespuesta);*/
 
     /*
     this.modelo.preguntas.forEach(function(pregunta) {

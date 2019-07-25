@@ -11,6 +11,9 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.preguntaAgregada.suscribir(function() {
     contexto.reconstruirLista();
   });
+  this.modelo.votoIncrementado.suscribir(function() {
+    contexto.reconstruirGrafico();
+  });
 };
 
 VistaUsuario.prototype = {
@@ -51,6 +54,8 @@ VistaUsuario.prototype = {
     preguntas.forEach(function(clave){
       //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
+      let elemento= $('<div id='+clave.id+' value='+clave.textoPregunta+'>'+clave.textoPregunta+'</div>'); // agregado
+      listaPreguntas.append(elemento);// agregado
       var respuestas = clave.cantidadPorRespuesta;
       contexto.mostrarRespuestas(listaPreguntas,respuestas, clave);
     })
