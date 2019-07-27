@@ -14,12 +14,17 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.votoIncrementado.suscribir(function() {
     contexto.reconstruirGrafico();
   });
+  /*this.modelo.preguntaActualizadas.suscribir(function() {
+    contexto.reconstruirGrafico();
+  });*/
 };
 
 VistaUsuario.prototype = {
   //muestra la lista por pantalla y agrega el manejo del boton agregar
   inicializar: function() {
     this.reconstruirLista();
+    this.recuperarDatos();
+    //this.reconstruirGrafico();
     var elementos = this.elementos;
     var contexto = this;
     
@@ -27,7 +32,10 @@ VistaUsuario.prototype = {
       contexto.agregarVotos(); 
     });    
   },
-
+  recuperarDatos: function() {
+    this.controlador.recuperarPreguntas();
+    console.log(this.modelo.preguntas);
+  },
   //reconstruccion de los graficos de torta
   reconstruirGrafico: function(){
     var contexto = this;
@@ -83,6 +91,7 @@ VistaUsuario.prototype = {
         contexto.controlador.agregarVoto(nombrePregunta,respuestaSeleccionada);
       });
     this.reconstruirGrafico();
+    this.limpiarFormulario();
   },
 
   dibujarGrafico: function(nombre, respuestas){
@@ -115,5 +124,11 @@ VistaUsuario.prototype = {
         chart.draw(data, options);
       }
     }
+  },
+
+  limpiarFormulario: function(){
+    var e = this.elementos;
+    let inputNombre= e.nombreUsuario;
+    inputNombre.val('');
   },
 };

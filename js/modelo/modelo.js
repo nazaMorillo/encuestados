@@ -11,6 +11,7 @@ var Modelo = function() {
   this.preguntaBorrada = new Evento(this); // agregué esta liniea
   this.encuestaBorrada = new Evento(this); // agregué esta liniea
   this.votoIncrementado = new Evento(this); // agregué esta liniea
+  //this.preguntaActualizadas = new Evento(this); // agregué esta liniea
 };
 
 Modelo.prototype = {   
@@ -62,40 +63,47 @@ Modelo.prototype = {
     this.borrarLocalStorage();
     this.preguntaBorrada.notificar();
   },
+  borrarVotos: function () {
+    this.preguntas.forEach(function(pregunta) {
+      pregunta.cantidadPorRespuesta.forEach(function(respuesta) {
+        respuesta.cantidad=0;          
+        });
+    });
+    this.guardar();
+    this.votoIncrementado.notificar();
+    this.preguntaAgregada.notificar();
+    location.reload(); 
+  },
+
   incrementarVotoRespuesta: function (nombrePregunta,respuestaSeleccionada) {
     this.preguntas.forEach(function(pregunta) {
       if (pregunta.textoPregunta==nombrePregunta) {
         pregunta.cantidadPorRespuesta.forEach(function(respuesta) {
           if (respuesta.textoRespuesta==respuestaSeleccionada) {
-            respuesta.cantidad++;
+            respuesta.cantidad++;                        
           }
         });     
       }
     });
+    this.guardar(); 
     this.votoIncrementado.notificar();
-    // Este bloque de texto comentado agrega voto cuando se le pasa por parametro 
-    // indice de pregunta e indice de respuesta
-    /*console.log('indice Pregunta['+indicePregunta+'],indie Respuesta['+indiceRespuesta+']');
+//Este bloque de texto comentado agrega voto cuando se le pasa por parametro indice de pregunta e indice
+//de respuesta (evitaría errores al tener el mismo nombre y textoRespuesta en 2 preguntas distintas)
+    /*
     let cantidad= this.preguntas[indicePregunta]
         .cantidadPorRespuesta[indiceRespuesta]
         .cantidad++;
-    console.log('Cantidad respuesta'+cantidad+', Respuesta : '+this.preguntas[indicePregunta]
-        .cantidadPorRespuesta[indiceRespuesta].textoRespuesta);*/
-
-    /*
-    this.modelo.preguntas.forEach(function(pregunta) {
-      console.log(pregunta.textoPregunta);
-      console.log(pregunta.cantidadPorRespuesta.cantidad);
-    });
     */
   },
-  // recuperar preguntas
+ 
+  //actualizar Preguntas
    actualizarPreguntas: function() {
     if (localStorage.getItem('Preguntas')) {
       //alert("Se recuperaron datos de la última sesión");
       let preguntasAlmacenadas = localStorage.getItem('Preguntas');
       this.preguntas=JSON.parse(preguntasAlmacenadas);
-      this.preguntaAgregada.notificar();  
+      this.preguntaAgregada.notificar();
+      //this.preguntaActualizadas.notificar(); 
     }
     //alert('No existe local Storage');
    },
