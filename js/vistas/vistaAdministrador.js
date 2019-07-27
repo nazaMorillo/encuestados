@@ -65,12 +65,11 @@ VistaAdministrador.prototype = {
   configuracionDeBotones: function(){
     var e = this.elementos;
     var contexto = this;
-
     //asociacion de eventos a boton
     e.botonAgregarPregunta.click(function() {
       var value = e.pregunta.val();
       var respuestas = [];
-
+      //alert(typeof(value));
       $('[name="option[]"]').each(function(respuesta) {
         //completar
         respuesta=$(this).val(); // agregregué esta parte en donde asocio el valor        
@@ -78,15 +77,21 @@ VistaAdministrador.prototype = {
           respuestas.push({'textoRespuesta': respuesta, 'cantidad': 0});
         }
       });
-      contexto.limpiarFormulario();
+      
       let id = parseInt($('.list-group-item.active').attr('id'));
-      if (id) {
-        //alert('Estamo activo');
-        contexto.controlador.editarPregunta(id, value, respuestas);
-      }else{
-        //alert('No estamo activo');
-        contexto.controlador.agregarPregunta(value, respuestas);
-      }      
+      if (value=="") {
+        alert("Complete campo pregunta por favor");
+      }else if (respuestas.length ==0 ) {
+        alert("Complete campo respuesta por favor");
+      }else if (id) {
+          alert("Vamos a editar una pregunta");
+          contexto.controlador.editarPregunta(id, value, respuestas);
+          contexto.limpiarFormulario();                    
+      }else {
+          alert("Vamos a agregar una pregunta nueva");
+          contexto.controlador.agregarPregunta(value, respuestas);
+          contexto.limpiarFormulario();         
+      }     
     });
     //asociar el resto de los botones a eventos
     e.botonEditarPregunta.click(function() { // agregué esta función
@@ -95,8 +100,10 @@ VistaAdministrador.prototype = {
       let preguntaRecuperada=contexto.controlador.buscarPreguntaPorId(id);
       // inserta el textoPregunta en el campo de pregunta
       e.pregunta.val(preguntaRecuperada[1].textoPregunta);
+      
+      setTimeout("window.scroll(0, 0);",300);
       // inserta la respuesta en el campo de respuesta
-      $('[name="option[]"]').val(preguntaRecuperada[1].cantidadPorRespuesta[0].textoRespuesta);
+      //$('[name="option[]"]').val(preguntaRecuperada[1].cantidadPorRespuesta[0].textoRespuesta);
     });
     // borrar pregunta por id
     e.botonBorrarPregunta.click(function() { // agregué esta función
