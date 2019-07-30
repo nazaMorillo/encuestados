@@ -70,15 +70,13 @@ VistaAdministrador.prototype = {
     e.botonAgregarPregunta.click(function() {
       var value = e.pregunta.val();
       var respuestas = [];
-      //alert(typeof(value));
       $('[name="option[]"]').each(function(respuesta) {
-        //completar
         respuesta=$(this).val(); // agregregué esta parte en donde asocio el valor        
         if(respuesta.length > 0 && value.length != null){
           respuestas.push({'textoRespuesta': respuesta, 'cantidad': 0});
         }
       });
-      
+      // validación de item a editar según esté activo o nó y si tiene id o no
       let id = parseInt($('.list-group-item.active').attr('id'));
       if (value=="") {
         alert("Complete campo pregunta por favor");
@@ -111,7 +109,6 @@ VistaAdministrador.prototype = {
     // borrar pregunta por id
     e.botonBorrarPregunta.click(function() { // agregué esta función
       let id = parseInt($('.list-group-item.active').attr('id')); // agregué esta linea
-      //console.log(id);
       //en la función del controlador para borrarPregunta paso por parametro id
       contexto.controlador.borrarPregunta(id);
     });

@@ -14,9 +14,6 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.modelo.votoIncrementado.suscribir(function() {
     contexto.reconstruirGrafico();
   });
-  /*this.modelo.preguntaActualizadas.suscribir(function() {
-    contexto.reconstruirGrafico();
-  });*/
 };
 
 VistaUsuario.prototype = {
@@ -24,7 +21,6 @@ VistaUsuario.prototype = {
   inicializar: function() {
     this.reconstruirLista();
     this.recuperarDatos();
-    //this.reconstruirGrafico();
     var elementos = this.elementos;
     var contexto = this;
     
@@ -58,7 +54,6 @@ VistaUsuario.prototype = {
     var preguntas = this.modelo.preguntas;
     preguntas.forEach(function(clave){
       //completar
-      //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
       let elemento= $('<div id='+clave.id+' value='+clave.textoPregunta+'>'+clave.textoPregunta+'</div>'); // agregado
       listaPreguntas.append(elemento);// agregado
       var respuestas = clave.cantidadPorRespuesta;

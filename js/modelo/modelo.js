@@ -11,7 +11,6 @@ var Modelo = function() {
   this.preguntaBorrada = new Evento(this); // agregué esta liniea
   this.encuestaBorrada = new Evento(this); // agregué esta liniea
   this.votoIncrementado = new Evento(this); // agregué esta liniea
-  //this.preguntaActualizadas = new Evento(this); // agregué esta liniea
 };
 
 Modelo.prototype = {   
@@ -52,7 +51,6 @@ Modelo.prototype = {
     this.preguntaEditada.notificar();
   },
   borrarPregunta: function(id){ // agregué este metodo
-    //console.log("Estoy en modelo con id de : "+id);
     this.preguntas = this.preguntas.filter(function(pregunta) { return pregunta.id !== id });
     this.guardar();
     this.preguntaBorrada.notificar();
@@ -102,10 +100,8 @@ Modelo.prototype = {
       //alert("Se recuperaron datos de la última sesión");
       let preguntasAlmacenadas = localStorage.getItem('Preguntas');
       this.preguntas=JSON.parse(preguntasAlmacenadas);
-      this.preguntaAgregada.notificar();
-      //this.preguntaActualizadas.notificar(); 
+      this.preguntaAgregada.notificar(); 
     }
-    //alert('No existe local Storage');
    },
   //se guardan las preguntas
   guardar: function(){

@@ -15,11 +15,10 @@ Controlador.prototype = {
   buscarPreguntaPorId: function(id) {  // agregué esta función
     return this.modelo.buscarPreguntaPorId(id);;
   },
-  editarPregunta: function(id, pregunta, respuestas) {
+  editarPregunta: function(id, pregunta, respuestas) {  // agregué esta función
       this.modelo.editarPregunta(id, pregunta, respuestas);
   },
   borrarPregunta: function(id) {  // agregué esta función
-    //console.log("Estoy en controlador con id de: "+id);
     this.modelo.borrarPregunta(id);
   },
   borrarEncuesta: function() {  // agregué esta función
