@@ -32,6 +32,7 @@ VistaAdministrador.prototype = {
     this.recuperarDatos();
     this.reconstruirLista();
     this.configuracionDeBotones();
+    this.edicion=false;
     
   },
   recuperarDatos: function() {
@@ -83,14 +84,15 @@ VistaAdministrador.prototype = {
         alert("Complete campo pregunta por favor");
       }else if (respuestas.length ==0 ) {
         alert("Complete campo respuesta por favor");
-      }else if (id) {
-          alert("Vamos a editar una pregunta");
-          contexto.controlador.editarPregunta(id, value, respuestas);
-          contexto.limpiarFormulario();                    
+      }else if (id && contexto.edicion==true) {
+        console.log("Vamos a editar una pregunta");
+        contexto.edicion==false;
+        contexto.controlador.editarPregunta(id, value, respuestas);
+        contexto.limpiarFormulario();                    
       }else {
-          alert("Vamos a agregar una pregunta nueva");
-          contexto.controlador.agregarPregunta(value, respuestas);
-          contexto.limpiarFormulario();         
+        console.log("Vamos a agregar una pregunta nueva");
+        contexto.controlador.agregarPregunta(value, respuestas);
+        contexto.limpiarFormulario();         
       }     
     });
     //asociar el resto de los botones a eventos
@@ -100,7 +102,8 @@ VistaAdministrador.prototype = {
       let preguntaRecuperada=contexto.controlador.buscarPreguntaPorId(id);
       // inserta el textoPregunta en el campo de pregunta
       e.pregunta.val(preguntaRecuperada[1].textoPregunta);
-      
+      contexto.edicion=true;
+      e.pregunta.focus();
       setTimeout("window.scroll(0, 0);",300);
       // inserta la respuesta en el campo de respuesta
       //$('[name="option[]"]').val(preguntaRecuperada[1].cantidadPorRespuesta[0].textoRespuesta);
